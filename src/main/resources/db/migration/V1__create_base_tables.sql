@@ -26,7 +26,7 @@ CREATE TABLE visits
 (
     id_visit     SERIAL PRIMARY KEY,
     id_user      INTEGER     NOT NULL,
-    table_number INTEGER     NOT NULL,
+    table_number INTEGER,
     opened_at    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
     closed_at    TIMESTAMP,
     status       VARCHAR(10) NOT NULL,
@@ -86,15 +86,15 @@ CREATE TABLE menu_taste_tags
 );
 
 
-CREATE TABLE user_taste_preferences
+CREATE TABLE visit_taste_preferences
 (
-    id_user INTEGER NOT NULL,
-    id_tag  INTEGER NOT NULL,
+    id_visit INTEGER NOT NULL,
+    id_tag   INTEGER NOT NULL,
 
-    PRIMARY KEY (id_user, id_tag),
+    PRIMARY KEY (id_visit, id_tag),
 
-    FOREIGN KEY (id_user)
-        REFERENCES users (id_user),
+    FOREIGN KEY (id_visit)
+        REFERENCES visits (id_visit),
 
     FOREIGN KEY (id_tag)
         REFERENCES taste_tags (id_tag)
