@@ -62,6 +62,7 @@ CREATE TABLE order_items
     id_order      INTEGER NOT NULL,
     id_product    INTEGER NOT NULL,
     quantity      INTEGER NOT NULL,
+    unit_price    NUMERIC(10, 2) NOT NULL,
 
     FOREIGN KEY (id_order)
         REFERENCES orders (id_order),

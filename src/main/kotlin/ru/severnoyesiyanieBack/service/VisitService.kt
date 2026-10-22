@@ -74,9 +74,8 @@ class VisitService(
 
     @Transactional
     fun closeVisit(id: Int): VisitResponse {
-
-        val visit = visitRepository.findById(id)
-            .orElseThrow { VisitNotFoundException(id) }
+        val visit = visitRepository.findByIdForUpdate(id)
+            ?: throw VisitNotFoundException(id)
 
         if (visit.status != VisitStatus.OPEN) {
             throw VisitAlreadyClosedException(id)
@@ -91,8 +90,8 @@ class VisitService(
     @Transactional
     fun updateTastePreferences(id: Int, request: VisitPreferencesRequest): VisitResponse {
 
-        val visit = visitRepository.findById(id)
-            .orElseThrow { VisitNotFoundException(id) }
+        val visit = visitRepository.findByIdForUpdate(id)
+            ?: throw VisitNotFoundException(id)
 
         if (visit.status != VisitStatus.OPEN) {
             throw VisitAlreadyClosedException(id)
