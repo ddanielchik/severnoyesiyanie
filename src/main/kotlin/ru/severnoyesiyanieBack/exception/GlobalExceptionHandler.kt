@@ -39,4 +39,20 @@ class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body(ErrorResponse(ex.message ?: "Cocktail not found"))
     }
+
+    @ExceptionHandler(VisitNotFoundException::class)
+    fun handleVisitNotFound(ex: VisitNotFoundException): ResponseEntity<String> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.message)
+    }
+
+    @ExceptionHandler(VisitAlreadyClosedException::class)
+    fun handleVisitAlreadyClosed(ex: VisitAlreadyClosedException): ResponseEntity<String> {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(ex.message ?: "The visit has been already closed")
+    }
+    @ExceptionHandler(TasteTagsNotFoundException::class)
+    fun handleTasteTagsNotFound(ex: TasteTagsNotFoundException): ResponseEntity<String> {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(ex.message ?: "Some specified taste tags were not found")
+    }
 }
