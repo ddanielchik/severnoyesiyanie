@@ -55,4 +55,15 @@ class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(ex.message ?: "Some specified taste tags were not found")
     }
+    @ExceptionHandler(OrderNotFoundException::class)
+    fun handleOrderNotFound(ex: OrderNotFoundException): ResponseEntity<String> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(ex.message ?: "Order not found")
+    }
+
+    @ExceptionHandler(InvalidUserRoleException::class)
+    fun handleInvalidUserRole(ex: InvalidUserRoleException): ResponseEntity<String> {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+            .body(ex.message ?: "Invalid user role")
+    }
 }
