@@ -32,4 +32,11 @@ class GlobalExceptionHandler {
             .status(HttpStatus.BAD_REQUEST)
         .body(ErrorResponse(message = message))
     }
+    @ExceptionHandler(MenuItemNotFoundException::class)
+    fun handleMenuItemNotFound(
+        ex: MenuItemNotFoundException
+    ): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse(ex.message ?: "Cocktail not found"))
+    }
 }
