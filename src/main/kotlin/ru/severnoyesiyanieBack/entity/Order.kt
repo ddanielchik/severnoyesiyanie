@@ -38,6 +38,6 @@ class Order(
     @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = [CascadeType.PERSIST])
     var items: MutableList<OrderItem> = mutableListOf()
 )

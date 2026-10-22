@@ -1,8 +1,6 @@
 package ru.severnoyesiyanieBack.entity
 
 import jakarta.persistence.*
-
-import jakarta.persistence.Entity
 import jakarta.validation.constraints.DecimalMin
 import jakarta.validation.constraints.NotBlank
 import java.math.BigDecimal
@@ -31,6 +29,10 @@ class MenuItem(
         scale = 2
     )
     var price: BigDecimal,
+
+    @field:Size(max = 500)
+    @Column(name = "ingredients", length = 500)
+    var ingredients: String? = null,
 
 
     @ManyToMany(fetch = FetchType.LAZY)
