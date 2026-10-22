@@ -9,10 +9,12 @@ import ru.severnoyesiyanieBack.service.VisitService
 import org.springframework.http.ResponseEntity
 import ru.severnoyesiyanieBack.dto.UpdateVisitRequest
 import ru.severnoyesiyanieBack.dto.VisitPreferencesRequest
+import ru.severnoyesiyanieBack.service.RecommendationService
+import ru.severnoyesiyanieBack.dto.MenuItemResponse
 
 @RestController
 @RequestMapping("/api/visits")
-class VisitController(private val visitService: VisitService) {
+class VisitController(private val visitService: VisitService, private val recommendationService: RecommendationService) {
 
     @GetMapping("/{id}")
     fun getVisitById(@PathVariable id: Int): VisitResponse {
@@ -59,5 +61,10 @@ class VisitController(private val visitService: VisitService) {
     @PostMapping("/{id}/close")
     fun closeVisit(@PathVariable id: Int): VisitResponse {
         return visitService.closeVisit(id)
+    }
+
+    @GetMapping("/{id}/recommendations")
+    fun getRecommendations(@PathVariable id: Int): List<MenuItemResponse> {
+        return recommendationService.getRecommendations(id)
     }
 }
