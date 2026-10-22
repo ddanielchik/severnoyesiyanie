@@ -30,7 +30,7 @@ class MenuItem(
     )
     var price: BigDecimal,
 
-    @field:Size(max = 50)
+    @field:Size(max = 500)
     @Column(name = "ingredients", length = 500)
     var ingredients: String? = null,
 

@@ -11,6 +11,8 @@ import ru.severnoyesiyanieBack.repository.UserRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.http.HttpStatus
+import org.springframework.web.server.ResponseStatusException
 import org.springframework.transaction.annotation.Transactional
 import ru.severnoyesiyanieBack.dto.UpdateVisitRequest
 import ru.severnoyesiyanieBack.entity.VisitStatus
@@ -61,6 +63,9 @@ class VisitService(
 
     @Transactional(readOnly = true)
     fun getAllVisits(page: Int, size: Int): Page<VisitResponse> {
+        if (page < 0) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Page must be non-negative")
+        }
 
         val pageable = PageRequest.of(
             page,
